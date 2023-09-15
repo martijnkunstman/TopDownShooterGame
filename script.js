@@ -14,10 +14,11 @@ let animateX = 0;
 let animateY = 0;
 
 const depths = [
-  { scale: 0.7, alpha: 0.1 },
-  { scale: 0.8, alpha: 0.2 },
-  { scale: 0.9, alpha: 0.4 },
-  { scale: 1, alpha: 0.8 },
+  { scale: 0.2, alpha: 0.1 },
+  { scale: 0.4, alpha: 0.2 },
+  { scale: 0.6, alpha: 0.3 },
+  { scale: 0.8, alpha: 0.4 },
+  { scale: 1, alpha: 0.5 },
 ];
 
 function drawGrid() {
@@ -88,7 +89,7 @@ function drawGrid() {
         // if (y > canvas.height-depth.scale*squareSize/2) {  // If the square is off the bottom of the canvas, move it to the top
         //     y -= canvas.height;
         // }
-
+        ctx.strokeStyle = 'rgba(255,255,255,'+depth.alpha+')';
         ctx.fillStyle = `rgba(0, 0, 0, ${depth.alpha})`; // Set the alpha transparency based on depth
         ctx.fillRect(x, y, adjustedSize, adjustedSize);
 
@@ -100,8 +101,10 @@ function drawGrid() {
         ];
 
         // Draw lines connecting corners between layers, if a previous layer exists
+        ctx.strokeStyle = 'rgba(255,255,255,'+depth.alpha+')';
         if (previousCorner) {
           for (let i = 0; i < 4; i++) {
+            ctx.lineWidth = depth.scale * 4;
             ctx.beginPath();
             ctx.moveTo(previousCorner[i].x, previousCorner[i].y);
             ctx.lineTo(currentCorners[i].x, currentCorners[i].y);
